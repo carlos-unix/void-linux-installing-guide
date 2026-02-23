@@ -18,7 +18,7 @@ Choose your default keyboard and press `Enter`.
 
 You'll have to put it manually. Put the network name, the protocol and the pass. For example, if your network's name is _Jane_, your protocol is _wpa_ (most common) and your pass is _jane123_, complete the fields with these information.
 
-#### Source 
+### Source 
 I strongly recommend select it from ISO, not from network. You'll get a minimal installation of the distro by doing that.
 
 ### Hostname
