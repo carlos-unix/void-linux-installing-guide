@@ -1,70 +1,171 @@
-# How to install Void Linux step by step
+# How to Install Void Linux – Step‑by‑Step Guide
 
-## Booting
-Firstly you'll need a bootable USB drive with the [Void base ISO](https://repo-default.voidlinux.org/live/current/void-live-x86_64-20250202-base.iso). I strongly recommend [Ventoy](https://github.com/ventoy/Ventoy) for this purpose.
+This guide explains how to install **Void Linux Base** from scratch in a clear and beginner‑friendly way. It follows the official installer flow and adds practical tips along the way.
 
-## Starting base system
 
-Void will open a command-line interface and request for a new login. The login is always `anon` and the pass is `voidlinux`. After logging in, call the script `void-installer`. The screen will show some interfaces to configure network, packages, permissions, etc, as explained below.
+# 1. Prepare the Bootable USB
 
-## Setting things up
-In this step, you'll configure network, packages of ISO, mirrors...
+Download the **Void Linux Base ISO**:
+[https://repo-default.voidlinux.org/live/current/](https://repo-default.voidlinux.org/live/current/)
 
-#### Keyboard
+Then create a bootable USB drive. Recommended tools:
 
-Choose your default keyboard and press `Enter`. 
+* **Ventoy** – easiest for multiple ISOs
+* Balena Etcher
+* Rufus (Windows)
 
-#### Network
+Boot your PC from the USB device.
 
-You'll have to put it manually. Put the network name, the protocol and the pass. For example, if your network's name is _Jane_, your protocol is _wpa_ (most common) and your pass is _jane123_, complete the fields with these information.
+# 2. Login and Start Installer
 
-#### Source 
-I strongly recommend select it from ISO, not from network. You'll get a minimal installation of the distro by doing that.
+After booting, Void Linux will open a terminal.
 
-#### Hostname
+Default login credentials:
 
-Choose the PC hostname, like: _Void_, _VoidLinux_, or whatever you want. 
+```
+User: anon
+Password: voidlinux
+```
 
-#### Locale
+Start the installer:
 
-Basically, the locale you are in. It'll appear with the language abreviation, the country abreviation and the unicode. Like: _en_US-UTF-8_ for example. After that, choose your timezone. For example, _America/Sao_Paulo_. 
+```
+void-installer
+```
 
-#### RootPassword
+You will now configure system options step‑by‑step.
 
-If you don't wanna set any password for `root` access, just skip it.
 
-#### UserAccount
+# 3. System Configuration
 
-Put your username to access system and choose a password for it. Like: `anon` (user) and `meanon` (pass). After that, choose what the user will control on system. I personally recommend the default choices and also _lp_, _network_, _users_, _storage_. To select options, press `Space` and you'll see an asterik on the options. 
+## Keyboard
 
-#### BootLoader
+Choose your keyboard layout and press **Enter**.
 
-Choose disk drive, and set it to initialize with a graphical interface (GRUB) on your disk of installation. 
+## Network
 
-#### Partition
+Enter:
 
-That's the most simple part, don't be afraid. Select the disk and press for using `cfdisk` (easy). It will open a black interface to set/delete/change type of partitions at the disk. If you already have partitions on disk, just delete all of them by changing one for one pressing `arrow_key_down` in each one. Done, create a initial partition with 300M, and change its type to _EFI System_. Create another one to the the main system partition (_/_) and a last one to the the _/home_ partition, and let type by default (_Linux filesystem_). I don't recommend you using _swap_, do it by your own risk. Press `write` when you finish it, and `quit`. 
+* Network name (SSID)
+* Protocol → usually `wpa`
+* Password
 
-#### Filesystems
+Example:
 
-You'll have to configure some things on the disk partitions your just created. Click on it and select each partition previosly created. 
+```
+SSID: Jane
+Protocol: wpa
+Password: jane123
+```
 
-For example: 
+## Source
 
-_/dev/sda1_ 300M (click on `change`) |
-type: vFAT (FAT32) |
-mount point: _/boot/efi_
+Choose **Install from ISO** for a minimal, faster installation.
 
-/dev/sda2 70G (click on `change`) |
-type: ext4 |
-mount point: _/_
+## Hostname
 
-/dev/sda3 100G (click on `change`) |
-type: ext4 |
-mount point: _/home_
+Choose your computer name, for example:
 
-Is everything completed? Return to the main screen and click to `install`. Wait for system's installation and reboot system. Take out your USB and wait...
+```
+voidpc
+```
 
-You can also see about installing a graphical interface of XFCE [on this link](https://github.com/carlos-unix/void-linux-xfce-script).
+## Locale & Timezone
 
-Any suggestion may be added on "Issues".
+Example:
+
+```
+Locale: en_US.UTF-8
+Timezone: America/Sao_Paulo
+```
+
+## Root Password
+
+Optional. You can skip if you prefer using sudo later.
+
+## User Account
+
+Create your main user:
+
+* Username
+* Password
+* Groups → keep defaults + optional: `lp`, `network`, `users`, `storage`
+
+Press **Space** to select groups.
+
+## Bootloader
+
+Select the disk where Void Linux will be installed.
+GRUB will be installed automatically.
+
+
+# 4. Disk Partitioning
+
+Choose **cfdisk** for easier partitioning.
+
+### Suggested Layout (UEFI):
+
+| Partition | Size      | Type             | Mount     |
+| --------- | --------- | ---------------- | --------- |
+| EFI       | 300MB     | EFI System       | /boot/efi |
+| Root      | 50–100GB  | Linux filesystem | /         |
+| Home      | Remaining | Linux filesystem | /home     |
+
+Steps:
+
+1. Delete old partitions if needed
+2. Create new partitions
+3. Set EFI type for the first partition
+4. Write changes and quit
+
+Backup your files before partitioning!
+
+
+# 5. Filesystem Setup
+
+Assign filesystem types:
+
+Example:
+
+```
+/dev/sda1 → vFAT → /boot/efi
+/dev/sda2 → ext4 → /
+/dev/sda3 → ext4 → /home
+```
+
+Return to main menu and select **Install**.
+
+Wait for installation to finish, then reboot and remove the USB drive.
+
+
+# 6. After Installation
+
+Void Base does not include a graphical interface.
+You can install one manually, for example XFCE.
+
+Example guide:
+👉 [https://github.com/carlos-unix/void-linux-xfce-script](https://github.com/carlos-unix/void-linux-xfce-script)
+
+
+# Tips & Notes
+
+• Void uses **runit**, not systemd
+• Use `xbps-install` to install packages
+• Update system with:
+
+```
+sudo xbps-install -Syu
+```
+
+# 🤝 Contributions
+
+Suggestions and corrections are welcome!
+Open an Issue or Pull Request in this repository.
+
+
+# ⭐ License
+
+MIT License (or choose your preferred license).
+
+
+If this guide helped you, consider giving the project a ⭐ on GitHub!
