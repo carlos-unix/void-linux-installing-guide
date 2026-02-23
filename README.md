@@ -2,7 +2,6 @@
 
 This guide explains how to install **Void Linux Base** from scratch in a clear and beginner‑friendly way. It follows the official installer flow and adds practical tips along the way.
 
-
 # 1. Prepare the Bootable USB
 
 Download the **Void Linux Base ISO**:
