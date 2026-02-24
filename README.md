@@ -164,7 +164,6 @@ Open an Issue or Pull Request in this repository.
 
 # ⭐ License
 
-MIT License (or choose your preferred license).
-
+GNU Public License
 
 If this guide helped you, consider giving the project a ⭐ on GitHub!
