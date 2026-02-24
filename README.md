@@ -161,9 +161,4 @@ sudo xbps-install -Syu
 Suggestions and corrections are welcome!
 Open an Issue or Pull Request in this repository.
 
-
-# ⭐ License
-
-GNU Public License
-
 If this guide helped you, consider giving the project a ⭐ on GitHub!
